@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
+
+import MicroservicioPedidos.Pedidos.dto.ProductoDTO;
 import MicroservicioPedidos.Pedidos.model.Pedido;
 import MicroservicioPedidos.Pedidos.repository.PedidoRepository;
 
@@ -20,26 +22,39 @@ public class PedidoService {
     @Autowired
     private RestTemplate restTemplate;
 
-    public Pedido registrarPedido(Pedido pedido) {
+public Pedido registrarPedido(Pedido pedido) {
         log.info("Iniciando validación para el cliente con ID: {}", pedido.getClienteId());
         
-        // Armamos la URL exacta hacia nuestro microservicio de Clientes (Puerto 8081)
+        // Se valida el cliente
         String urlMicroservicioClientes = "http://localhost:8081/api/v1/clientes/" + pedido.getClienteId();
-
         try {
-            // Hacemos una llamada GET "invisible" para ver si el cliente existe
-            ResponseEntity<String> respuesta = restTemplate.getForEntity(urlMicroservicioClientes, String.class);
-            
-            // Si no hay error, el cliente existe. Guardamos el pedido.
-            log.info("Cliente validado correctamente. Guardando pedido...");
-            pedido.setEstado("CREADO");
-            return pedidoRepository.save(pedido);
-
+            restTemplate.getForEntity(urlMicroservicioClientes, String.class);
+            log.info("Cliente válido.");
         } catch (HttpClientErrorException.NotFound e) {
-            // Si el puerto 8081 nos responde un 404 (No encontrado), bloqueamos el pedido.
             log.error("Error: El cliente con ID {} no existe en la base de datos.", pedido.getClienteId());
             throw new RuntimeException("No se puede crear el pedido: El cliente no existe.");
         }
+
+        // Se valida el producto y el sotck
+        log.info("Verificando stock del producto ID: {}", pedido.getProductoId());
+        String urlMicroservicioProductos = "http://localhost:8083/api/v1/productos/" + pedido.getProductoId();
+        
+        try {
+            ResponseEntity<ProductoDTO> respuestaProducto = restTemplate.getForEntity(urlMicroservicioProductos, ProductoDTO.class);
+            ProductoDTO producto = respuestaProducto.getBody();
+
+            // Verificamos la regla de negocio del stock
+            if (producto.getStock() < pedido.getCantidad()) {
+                throw new RuntimeException("Stock insuficiente. Stock actual: " + producto.getStock());
+            }
+        } catch (HttpClientErrorException.NotFound e) {
+            throw new RuntimeException("No se puede crear el pedido: El producto no existe en el catálogo.");
+        }
+
+        // Si cumple todo se guarda
+        log.info("Stock validado correctamente. Guardando pedido definitivo...");
+        pedido.setEstado("CREADO");
+        return pedidoRepository.save(pedido);
     }
 
 }
