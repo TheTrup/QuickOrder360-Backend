@@ -54,7 +54,14 @@ public Pedido registrarPedido(Pedido pedido) {
         // Si cumple todo se guarda
         log.info("Stock validado correctamente. Guardando pedido definitivo...");
         pedido.setEstado("CREADO");
-        return pedidoRepository.save(pedido);
+        Pedido pedidoGuardado = pedidoRepository.save(pedido);
+
+        // Restar el stock del producto (Llamada al puerto 8083)
+        log.info("Descontando stock en el inventario...");
+        String urlRestarStock = "http://localhost:8083/api/v1/productos/" + pedido.getProductoId() + "/restar-stock?cantidad=" + pedido.getCantidad();
+        restTemplate.put(urlRestarStock, null);
+
+        return pedidoGuardado;
     }
 
 }

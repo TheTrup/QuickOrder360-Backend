@@ -46,4 +46,10 @@ public class ProductoController {
 
     }
 
+    @PutMapping("/{id}/restar-stock")
+    public ResponseEntity<?> restarStock(@PathVariable Long id, @RequestParam Integer cantidad) {
+        productoService.restarStock(id, cantidad);
+        return ResponseEntity.ok("Stock actualizado correctamente");
+    }
+
 }
