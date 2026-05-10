@@ -6,4 +6,6 @@ import MicroservicioPedidos.Pedidos.model.Pedido;
 
 public interface PedidoRepository extends JpaRepository<Pedido, Long> {
 
+    
+
 }

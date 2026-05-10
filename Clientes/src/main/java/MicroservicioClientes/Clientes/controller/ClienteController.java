@@ -10,14 +10,12 @@ import MicroservicioClientes.Clientes.model.Cliente;
 import MicroservicioClientes.Clientes.service.ClienteService;
 import java.util.Optional;
 
-
 import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/clientes")
 
 public class ClienteController {
-
     @Autowired
     private ClienteService clienteService;
 
