@@ -30,7 +30,7 @@ public class ProductoController {
 
     @GetMapping
     public ResponseEntity<?> listar(){
-        return ResponseEntity.ok(productoService.ObtenerTodos());
+        return ResponseEntity.ok(productoService.obtenerTodos());
     }
 
     @GetMapping("/{id}")
