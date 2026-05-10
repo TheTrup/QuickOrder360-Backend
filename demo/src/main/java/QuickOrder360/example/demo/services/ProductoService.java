@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import QuickOrder360.example.demo.model.Producto;
 import QuickOrder360.example.demo.repository.ProductoRepository;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductoService {
@@ -18,8 +19,11 @@ public class ProductoService {
     }
 
     public List<Producto> ObtenerTodos() {
-
         return productoRepository.findAll();
+    }
+
+    public Optional<Producto> obtenerPorId(Long id){
+        return productoRepository.findById(id);
     }
 
 }

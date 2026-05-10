@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 import QuickOrder360.example.demo.model.Producto;
 import QuickOrder360.example.demo.services.ProductoService;
 
+import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @RestController
 @RequestMapping("/api/v1/productos")
