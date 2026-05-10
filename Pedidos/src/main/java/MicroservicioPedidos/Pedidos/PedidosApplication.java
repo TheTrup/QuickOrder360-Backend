@@ -11,10 +11,4 @@ public class PedidosApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(PedidosApplication.class, args);
 	}
-
-	@Bean
-    public RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
-
 }
