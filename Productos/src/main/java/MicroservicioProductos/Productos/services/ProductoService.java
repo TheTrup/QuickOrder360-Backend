@@ -1,9 +1,9 @@
-package QuickOrder360.example.demo.services;
+package MicroservicioProductos.Productos.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import QuickOrder360.example.demo.model.Producto;
-import QuickOrder360.example.demo.repository.ProductoRepository;
+import MicroservicioProductos.Productos.model.Producto;
+import MicroservicioProductos.Productos.repository.ProductoRepository;
 import java.util.List;
 import java.util.Optional;
 

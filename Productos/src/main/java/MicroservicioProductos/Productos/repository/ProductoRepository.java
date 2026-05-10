@@ -1,8 +1,8 @@
-package QuickOrder360.example.demo.repository;
+package MicroservicioProductos.Productos.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import QuickOrder360.example.demo.model.Producto;
+import MicroservicioProductos.Productos.model.Producto;
 
 
 @Repository

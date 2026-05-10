@@ -1,4 +1,4 @@
-package QuickOrder360.example.demo.controller;
+package MicroservicioProductos.Productos.controller;
 
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -6,8 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import QuickOrder360.example.demo.model.Producto;
-import QuickOrder360.example.demo.services.ProductoService;
+import MicroservicioProductos.Productos.model.Producto;
+import MicroservicioProductos.Productos.services.ProductoService;
 
 import java.util.List;
 import java.util.Optional;

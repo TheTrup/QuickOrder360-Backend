@@ -1,4 +1,4 @@
-package QuickOrder360.example.demo.model;
+package MicroservicioProductos.Productos.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
