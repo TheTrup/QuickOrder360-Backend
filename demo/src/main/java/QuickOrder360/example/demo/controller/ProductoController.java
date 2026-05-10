@@ -25,13 +25,25 @@ public class ProductoController {
     public ResponseEntity<?> registrar(@Valid @RequestBody Producto producto){
         log.info("registrando nuevo producto: {}", producto.getNombre());
         Producto nuevoProducto = productoService.registraProducto(producto);
-
         return ResponseEntity.status(HttpStatus.CREATED).body(nuevoProducto);
     }
 
     @GetMapping
     public ResponseEntity<?> listar(){
         return ResponseEntity.ok(productoService.ObtenerTodos());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> buscarPorId(@PathVariable Long id) {
+        Optional<Producto> producto = productoService.obtenerPorId(id);
+
+        if (producto.isPresent()) {
+            return ResponseEntity.ok(producto.get());
+        }else{
+            return ResponseEntity.notFound().build();
+        
+        }
+
     }
 
 }
