@@ -35,7 +35,7 @@ public class InventarioController {
         }
     }
 
-    @PutMapping("/descontar/{productoId}/{cantidad}") 
+    @PutMapping("/api/v1/inventario/descontar/{productoId}/{cantidad}") 
     public ResponseEntity<String> descontarStock(@PathVariable Long productoId, @PathVariable Integer cantidad) {
         boolean exito = service.restarStock(productoId, cantidad);
         if (exito) {
