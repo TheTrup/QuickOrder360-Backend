@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PagoApplication",
+            "request": "launch",
+            "mainClass": "MicroServicioPagos.Pago.PagoApplication",
+            "projectName": "Pago"
+        },
+        {
+            "type": "java",
             "name": "InventarioApplication",
             "request": "launch",
             "mainClass": "MicroServicioInventario.Inventario.InventarioApplication",
