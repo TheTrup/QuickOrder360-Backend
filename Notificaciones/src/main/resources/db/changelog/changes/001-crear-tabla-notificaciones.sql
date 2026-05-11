@@ -1,0 +1,8 @@
+CREATE TABLE notificaciones (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    usuario_id BIGINT NOT NULL,
+    tipo VARCHAR(50) NOT NULL, -- Ej: 'EMAIL', 'SMS', 'PUSH'
+    mensaje TEXT NOT NULL,
+    estado VARCHAR(50) NOT NULL, -- Ej: 'ENVIADO', 'PENDIENTE', 'ERROR'
+    fecha_envio TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
