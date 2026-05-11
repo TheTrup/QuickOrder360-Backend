@@ -16,6 +16,48 @@
             "name": "InventarioApplication",
             "request": "launch",
             "mainClass": "MicroServicioInventario.Inventario.InventarioApplication",
+            "projectName": "MicroServicioInventario-Inventario"
+        },
+        {
+            "type": "java",
+            "name": "ProductoApplication",
+            "request": "launch",
+            "mainClass": "MicroservicioProductos.Productos.ProductoApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "PedidosApplication",
+            "request": "launch",
+            "mainClass": "MicroservicioPedidos.Pedidos.PedidosApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "ClientesApplication",
+            "request": "launch",
+            "mainClass": "MicroservicioClientes.Clientes.ClientesApplication",
+            "projectName": "MicroservicioPedidos-Pedidos"
+        },
+        {
+            "type": "java",
+            "name": "EurekaServerApplication",
+            "request": "launch",
+            "mainClass": "com.quickorder.eureka.EurekaServerApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "EurekaServerApplication",
+            "request": "launch",
+            "mainClass": "com.quickorder.eureka_server.EurekaServerApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "InventarioApplication",
+            "request": "launch",
+            "mainClass": "MicroServicioInventario.Inventario.InventarioApplication",
             "projectName": "Inventario"
         },
         {

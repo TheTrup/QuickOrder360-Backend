@@ -3,10 +3,17 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
+<<<<<<< Updated upstream
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.5</version>
 		<relativePath/> <!-- lookup parent from repository -->
+=======
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>3.2.5</version>
+        <relativePath/> 
+>>>>>>> Stashed changes
 	</parent>
 	<groupId>DetallePedido</groupId>
 	<artifactId>DtePedido</artifactId>
@@ -63,7 +70,10 @@
 			<groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
 		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
@@ -77,6 +87,13 @@
 		<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-openfeign</artifactId>
+<<<<<<< Updated upstream
+=======
+		</dependency>
+		<dependency>
+    		<groupId>org.springframework.cloud</groupId>
+    		<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+>>>>>>> Stashed changes
 		</dependency>
 	</dependencies>
 

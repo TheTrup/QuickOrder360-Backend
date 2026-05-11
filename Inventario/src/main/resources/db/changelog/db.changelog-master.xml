@@ -5,6 +5,10 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
         http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.3.xsd">
 
+<<<<<<< Updated upstream
     <include file="changes/001-crear-tabla-Inventario.sql" relativeToChangelogFile="true"/>
+=======
+    <include file="db/changelog/changes/001-crear-tabla-Inventario.sql" relativeToChangelogFile="false"/>
+>>>>>>> Stashed changes
 
 </databaseChangeLog>
