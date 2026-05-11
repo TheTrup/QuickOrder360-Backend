@@ -1,8 +1,10 @@
 package MicroServicioInventario.Inventario.service;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import MicroServicioInventario.Inventario.model.Inventario;
 import MicroServicioInventario.Inventario.repository.InventarioRepository;
+import java.util.Optional;
 
 @Service
 
@@ -35,14 +37,21 @@ public class InventarioService {
     }
 
     public boolean restarStock(Long productoId, Integer cantidad) {
-        // Buscamos el registro de inventario para ese producto
-        Inventario item = inventarioRepository.findByProductoId(productoId); 
-        if (item != null && item.getCantidad() >= cantidad) {
-            item.setCantidad(item.getCantidad() - cantidad);
-            inventarioRepository.save(item);
-            return true;
+        // 1. Buscamos el ítem por el ID del producto
+        Optional<Inventario> itemOpt = repository.findByProductoId(productoId);
+        
+        if (itemOpt.isPresent()) {
+            Inventario item = itemOpt.get();
+            
+            // 2. Usamos getStockActual() que es el nombre de tu getter manual
+            if (item.getStockActual() >= cantidad) {
+                // 3. Calculamos y actualizamos usando setStockActual
+                item.setStockActual(item.getStockActual() - cantidad);
+                repository.save(item);
+                return true;
+            }
         }
         return false;
-}
+    }
 
 }

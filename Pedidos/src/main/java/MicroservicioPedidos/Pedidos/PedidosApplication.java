@@ -7,7 +7,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication
 @EnableDiscoveryClient
-@EnableFeignClients
+@EnableFeignClients(basePackages = "MicroservicioPedidos.Pedidos.client")
 public class PedidosApplication {
 
 	public static void main(String[] args) {

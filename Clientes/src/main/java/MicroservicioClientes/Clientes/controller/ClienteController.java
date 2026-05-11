@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import MicroservicioClientes.Clientes.model.Cliente;
+import MicroservicioClientes.Clientes.repository.ClienteRepository;
 import MicroservicioClientes.Clientes.service.ClienteService;
 import java.util.Optional;
 

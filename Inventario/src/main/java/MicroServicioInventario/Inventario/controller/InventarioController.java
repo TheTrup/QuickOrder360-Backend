@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import MicroServicioInventario.Inventario.service.InventarioService;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/api/v1/inventario")
@@ -34,9 +35,9 @@ public class InventarioController {
         }
     }
 
-    @PutMapping("/inventario/descontar/{productoId}/{cantidad}")
+    @PutMapping("/descontar/{productoId}/{cantidad}") 
     public ResponseEntity<String> descontarStock(@PathVariable Long productoId, @PathVariable Integer cantidad) {
-        boolean exito = inventarioService.restarStock(productoId, cantidad);
+        boolean exito = service.restarStock(productoId, cantidad);
         if (exito) {
             return ResponseEntity.ok("Stock descontado correctamente");
         } else {
