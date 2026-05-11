@@ -16,6 +16,13 @@
             "name": "PagoApplication",
             "request": "launch",
             "mainClass": "MicroServicioPagos.Pago.PagoApplication",
+            "projectName": ""
+        },
+        {
+            "type": "java",
+            "name": "PagoApplication",
+            "request": "launch",
+            "mainClass": "MicroServicioPagos.Pago.PagoApplication",
             "projectName": "Pago"
         },
         {
