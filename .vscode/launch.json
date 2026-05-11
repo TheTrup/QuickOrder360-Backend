@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "ReclamosApplication",
+            "request": "launch",
+            "mainClass": "MicroServicioReclamos.Reclamos.ReclamosApplication",
+            "projectName": "Reclamos"
+        },
+        {
+            "type": "java",
             "name": "DespachosApplication",
             "request": "launch",
             "mainClass": "MicroServicioDespachos.Despachos.DespachosApplication",

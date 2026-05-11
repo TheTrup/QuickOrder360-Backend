@@ -1,4 +1,4 @@
-package main.java.MicroServicioPagos.Pago.client;
+package MicroServicioPagos.Pago.client;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PutMapping;
