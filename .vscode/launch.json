@@ -4,20 +4,8 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-        {
-            "type": "java",
-            "name": "ReclamosApplication",
-            "request": "launch",
-            "mainClass": "MicroServicioReclamos.Reclamos.ReclamosApplication",
-            "projectName": "Reclamos"
-        },
-        {
-            "type": "java",
-            "name": "DespachosApplication",
-            "request": "launch",
-            "mainClass": "MicroServicioDespachos.Despachos.DespachosApplication",
-            "projectName": "Despachos"
-        },
+        
+
         {
             "type": "java",
             "name": "PagoApplication",
