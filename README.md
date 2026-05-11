@@ -17,18 +17,18 @@ Liquibase: Gestión y versionamiento de esquemas de base de datos.
 
 Lombok & SLF4J: Optimización de código y registro de logs.
 
-Servicio,Puerto,Descripción
-eureka-server,8761,Servidor de descubrimiento de servicios.
-ms-usuarios,8080,Gestión de perfiles y seguridad.
-ms-clientes,8081,Administración de datos maestros de clientes.
-ms-pedidos,8082,Orquestador principal del flujo de venta.
-ms-productos,8083,Catálogo de productos y precios.
-ms-detalles,8084,Gestión del desglose de ítems por pedido.
-ms-inventario,8085,Control de stock físico y movimientos de bodega.
-ms-pagos,8086,Procesamiento de transacciones financieras.
-ms-despachos,8087,Logística y seguimiento de entregas.
-ms-reclamos,8088,Gestión de post-venta y soporte.
-ms-notificaciones,8089,Motor de alertas y avisos al usuario.
+# Servicio , Puerto, Descripción
+eureka-server , 8761, Servidor de descubrimiento de servicios.
+Usuario , 8080, Gestión de perfiles y seguridad.
+Clientes , 8081, Administración de datos maestros de clientes.
+Pedidos , 8082, Orquestador principal del flujo de venta.
+Productos , 8083, Catálogo de productos y precios.
+DtePedido , 8084, Gestión del desglose de ítems por pedido.
+Inventario ,8085, Control de stock físico y movimientos de bodega.
+Pago , 8086, Procesamiento de transacciones financieras.
+Despachos , 8087, Logística y seguimiento de entregas.
+Reclamos , 8088, Gestión de post-venta y soporte.
+Notificaciones , 8089, Motor de alertas y avisos al usuario.
 
 # Flujo de Integración Crítico (Pedidos -> Inventario)
 El sistema implementa una lógica de orquestación segura. Un pedido no puede ser confirmado si no cumple con las siguientes validaciones cruzadas:
