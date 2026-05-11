@@ -1,17 +1,14 @@
 package DetallePedido.DtePedido.service;
 
+import java.math.BigDecimal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import jakarta.validation.Valid;
-
 import DetallePedido.DtePedido.model.DetallePedido;
 import DetallePedido.DtePedido.service.DetallePedidosService;
 import DetallePedido.DtePedido.repository.DetallePedidoRepository;
 import DetallePedido.DtePedido.dto.ProductoDTO;
-import DetallePedido.DtePedido.dto.PedidoDTO;
+
 
 @Service
 
@@ -41,9 +38,17 @@ public class DetallePedidosService {
             throw new RuntimeException("Error: El producto " + detalle.getProductoId() + " no existe.");
         }
 
-        // 3. Asignar precio y calcular subtotal (¡Aquí ya existe 'producto'!)
-        detalle.setPrecioUnitario(producto.getPrecio());
-        detalle.setSubtotal(detalle.getCantidad() * producto.getPrecio());
+
+        // 3. Asignar precio y calcular subtotal
+            detalle.setPrecioUnitario(producto.getPrecio());
+
+            // IMPORTANTE: Para multiplicar BigDecimal se usa .multiply()
+            // Convertimos la cantidad (int) a BigDecimal primero
+            BigDecimal cantidadBD = new BigDecimal(detalle.getCantidad());
+            BigDecimal subtotalCalculado = producto.getPrecio().multiply(cantidadBD);
+
+            detalle.setSubtotal(subtotalCalculado);
+                    
 
         // 4. Avisarle a Inventario que descuente el stock (Puerto 8085)
         try {

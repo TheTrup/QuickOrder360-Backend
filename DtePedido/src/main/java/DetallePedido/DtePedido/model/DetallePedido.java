@@ -3,9 +3,10 @@ package DetallePedido.DtePedido.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
+import java.math.BigDecimal;
 
 @Entity
-@Table(name = "detalles_pedidos")
+@Table(name = "detalle_pedido")
 
 public class DetallePedido {
 
@@ -22,8 +23,11 @@ public class DetallePedido {
     @Min(value = 1, message = "La cantidad debe ser al menos 1")
     private Integer cantidad;
 
-    private Double precioUnitario; // Se obtiene del microservicio Productos
-    private Double subtotal;       // cantidad * precioUnitario
+    @Column(name = "precio_unitario", columnDefinition = "DOUBLE")
+    private BigDecimal precioUnitario; // Se obtiene del microservicio Productos
+
+    @Column(name = "subtotal", columnDefinition = "DOUBLE")
+    private BigDecimal subtotal;       // cantidad * precioUnitario
 
     // Constructores, Getters y Setters
     public DetallePedido() {}
@@ -54,19 +58,19 @@ public class DetallePedido {
         this.cantidad = cantidad;
     }
 
-    public Double getPrecioUnitario() {
+    public BigDecimal getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(Double precioUnitario) {
+    public void setPrecioUnitario(BigDecimal precioUnitario) {
         this.precioUnitario = precioUnitario;
     }
 
-    public Double getSubtotal() {
+    public BigDecimal getSubtotal() {
         return subtotal;
     }
 
-    public void setSubtotal(Double subtotal) {
+    public void setSubtotal(BigDecimal subtotal) {
         this.subtotal = subtotal;
     }
 }

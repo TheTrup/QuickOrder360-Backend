@@ -1,10 +1,12 @@
 package DetallePedido.DtePedido.dto;
 
+import java.math.BigDecimal;
+
 public class ProductoDTO {
 
     private Long id;
     private String nombre;
-    private Double precio;
+    private BigDecimal precio;
 
     // Constructores
     public ProductoDTO() {}
@@ -25,11 +27,11 @@ public class ProductoDTO {
         this.nombre = nombre;
     }
 
-    public Double getPrecio() {
+    public BigDecimal getPrecio() {
         return precio;
     }
 
-    public void setPrecio(Double precio) {
+    public void setPrecio(BigDecimal precio) {
         this.precio = precio;
     }
 
