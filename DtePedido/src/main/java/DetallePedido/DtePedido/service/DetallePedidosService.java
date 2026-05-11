@@ -25,6 +25,7 @@ public class DetallePedidosService {
     private RestTemplate restTemplate;
 
     public DetallePedido guardar(DetallePedido detalle) {
+        
         // 1. Validar que el Pedido existe (Puerto 8082)
         try {
             restTemplate.getForObject("http://localhost:8082/api/v1/pedidos/" + detalle.getPedidoId(), Object.class);
@@ -40,10 +41,22 @@ public class DetallePedidosService {
             throw new RuntimeException("Error: El producto " + detalle.getProductoId() + " no existe.");
         }
 
-        // 3. Asignar precio y calcular subtotal
+        // 3. Asignar precio y calcular subtotal (¡Aquí ya existe 'producto'!)
         detalle.setPrecioUnitario(producto.getPrecio());
         detalle.setSubtotal(detalle.getCantidad() * producto.getPrecio());
 
+        // 4. Avisarle a Inventario que descuente el stock (Puerto 8085)
+        try {
+            int cantidadARestar = -detalle.getCantidad(); 
+            String urlInventario = "http://localhost:8085/api/v1/inventario/" + detalle.getProductoId() + "?cantidad=" + cantidadARestar;
+            
+            // Hacemos un POST a inventario
+            restTemplate.postForObject(urlInventario, null, Object.class);
+        } catch (Exception e) {
+            throw new RuntimeException("Error: No se pudo descontar el stock. Verifica el stock en Inventario.");
+        }
+    
+        // 5. Guardar finalmente el detalle del pedido
         return repository.save(detalle);
     }
 
