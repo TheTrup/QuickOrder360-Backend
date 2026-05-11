@@ -3,20 +3,18 @@ package MicroservicioPedidos.Pedidos.service;
 import feign.FeignException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.transaction.annotation.Transactional;
 
 import MicroservicioPedidos.Pedidos.client.ClienteClient;
 import MicroservicioPedidos.Pedidos.client.ProductoClient;
+import MicroservicioPedidos.Pedidos.client.InventarioClient; // Import corregido
 import MicroservicioPedidos.Pedidos.dto.ProductoDTO;
 import MicroservicioPedidos.Pedidos.model.Pedido;
 import MicroservicioPedidos.Pedidos.repository.PedidoRepository;
 
 @Slf4j
 @Service
-
 public class PedidoService {
 
     @Autowired
@@ -28,38 +26,45 @@ public class PedidoService {
     @Autowired
     private ProductoClient productoClient;
 
-public Pedido registrarPedido(Pedido pedido) {
+    @Autowired
+    private InventarioClient inventarioClient;
+
+    @Transactional // Si algo falla después de guardar, se puede revertir
+    public Pedido registrarPedido(Pedido pedido) {
         log.info("Iniciando validación para el cliente con ID: {}", pedido.getClienteId());
         
-        // Se valida el cliente
+        // 1. Validar Cliente
         try {
             clienteClient.obtenerClientePorId(pedido.getClienteId());
             log.info("Cliente válido.");
         } catch (FeignException.NotFound e) {
-            log.error("Error: El cliente con ID {} no existe en la base de datos.", pedido.getClienteId());
+            log.error("Error: El cliente ID {} no existe.", pedido.getClienteId());
             throw new RuntimeException("No se puede crear el pedido: El cliente no existe.");
         }
 
-        // Se valida el producto y el stock
-        log.info("Verificando stock del producto ID: {}", pedido.getProductoId());
+        // 2. Validar Existencia del Producto
+        log.info("Verificando existencia del producto ID: {}", pedido.getProductoId());
         try {
-            ProductoDTO producto = productoClient.obtenerProductoPorId(pedido.getProductoId());
-            if (producto.getStock() < pedido.getCantidad()) {
-                throw new RuntimeException("Stock insuficiente. Stock actual: " + producto.getStock());
-            }
+            productoClient.obtenerProductoPorId(pedido.getProductoId());
         } catch (FeignException.NotFound e) {
             throw new RuntimeException("No se puede crear el pedido: El producto no existe.");
         }
 
-        // Si cumple todo se guarda
-        log.info("Stock validado correctamente. Guardando pedido definitivo...");
-        pedido.setEstado("CREADO");
-        Pedido pedidoGuardado = pedidoRepository.save(pedido);
+        // 3. Descontar Stock en el Microservicio de Inventario
+        // Hacemos esto ANTES de guardar el pedido para asegurar que hay existencia
+        log.info("Intentando descontar {} unidades del inventario para producto ID: {}", 
+                 pedido.getCantidad(), pedido.getProductoId());
+        try {
+            inventarioClient.descontarStock(pedido.getProductoId(), pedido.getCantidad());
+            log.info("Stock descontado exitosamente.");
+        } catch (FeignException e) {
+            log.error("Error al descontar stock: {}", e.getMessage());
+            throw new RuntimeException("Error: Stock insuficiente o problema en Inventario.");
+        }
 
-        // Restar el stock del producto (Llamada al puerto 8083)
-        log.info("Descontando stock en el inventario...");
-        productoClient.restarStock(pedido.getProductoId(), pedido.getCantidad());
-        return pedidoGuardado;
+        // 4. Guardar Pedido definitivo
+        log.info("Procesando guardado de pedido...");
+        pedido.setEstado("CONFIRMADO");
+        return pedidoRepository.save(pedido);
     }
-
 }

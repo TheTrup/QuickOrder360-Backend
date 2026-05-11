@@ -6,6 +6,7 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< Updated upstream
             "name": "ReclamosApplication",
             "request": "launch",
             "mainClass": "MicroServicioReclamos.Reclamos.ReclamosApplication",
@@ -17,13 +18,23 @@
             "request": "launch",
             "mainClass": "MicroServicioNotificaciones.Notificaciones.NotificacionesApplication",
             "projectName": "Notificaciones"
+=======
+            "name": "NotificacionesApplication",
+            "request": "launch",
+            "mainClass": "MicroServicioNotificaciones.Notificaciones.NotificacionesApplication",
+            "projectName": ""
+>>>>>>> Stashed changes
         },
         {
             "type": "java",
             "name": "DespachosApplication",
             "request": "launch",
             "mainClass": "MicroServicioDespachos.Despachos.DespachosApplication",
+<<<<<<< Updated upstream
             "projectName": "Despachos"
+=======
+            "projectName": ""
+>>>>>>> Stashed changes
         },
         {
             "type": "java",

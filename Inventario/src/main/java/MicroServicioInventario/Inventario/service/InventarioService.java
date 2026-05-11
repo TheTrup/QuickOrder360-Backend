@@ -34,4 +34,15 @@ public class InventarioService {
         return repository.save(inventario);
     }
 
+    public boolean restarStock(Long productoId, Integer cantidad) {
+        // Buscamos el registro de inventario para ese producto
+        Inventario item = inventarioRepository.findByProductoId(productoId); 
+        if (item != null && item.getCantidad() >= cantidad) {
+            item.setCantidad(item.getCantidad() - cantidad);
+            inventarioRepository.save(item);
+            return true;
+        }
+        return false;
+}
+
 }

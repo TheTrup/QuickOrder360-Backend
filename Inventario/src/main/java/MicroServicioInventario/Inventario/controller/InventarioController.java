@@ -34,4 +34,14 @@ public class InventarioController {
         }
     }
 
+    @PutMapping("/inventario/descontar/{productoId}/{cantidad}")
+    public ResponseEntity<String> descontarStock(@PathVariable Long productoId, @PathVariable Integer cantidad) {
+        boolean exito = inventarioService.restarStock(productoId, cantidad);
+        if (exito) {
+            return ResponseEntity.ok("Stock descontado correctamente");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Stock insuficiente o producto no encontrado");
+        }
+    }
+
 }
