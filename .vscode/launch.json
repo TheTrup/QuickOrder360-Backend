@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "DespachosApplication",
+            "request": "launch",
+            "mainClass": "MicroServicioDespachos.Despachos.DespachosApplication",
+            "projectName": "Despachos"
+        },
+        {
+            "type": "java",
             "name": "PagoApplication",
             "request": "launch",
             "mainClass": "MicroServicioPagos.Pago.PagoApplication",
